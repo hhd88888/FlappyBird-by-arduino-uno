@@ -26,7 +26,7 @@ unsigned char bird_step = 0;
 unsigned char col_speed = 100;
 unsigned char tonepin = 3;
 
-LiquidCrystal_I2C lcd(0x27,16,2);  //端口�?, 显示模式 16x2
+LiquidCrystal_I2C lcd(0x27,16,2);  
 
 unsigned char cols_over[16][24] = 
 {
@@ -92,8 +92,8 @@ void setup() {
 
   pinMode(3, OUTPUT); 
   
-  lcd.init();                  // 初始化LCD
-  lcd.backlight();//设置LCD背景等亮
+  lcd.init(); 
+  lcd.backlight();
   Serial.begin(9600);
 }
 
@@ -135,7 +135,7 @@ void game_begin()
     {
       for (unsigned char j = 0; j < 2; j++)
       {
-        col_result[i][j] = 0; //鎭㈠涓洪浂
+        col_result[i][j] = 0; //��ʼ��
       }
     }
     for (unsigned char i = 0; i < 16; i++)
@@ -157,7 +157,6 @@ void game_begin()
 
 }
 
-//鐐瑰嚮楦熶笂锟�?
 void bird_up()
 {
   if (bird_height < 15)
@@ -172,10 +171,9 @@ void bird_up()
 
 void print_score()
 {
-  lcd.init();                  // 初始化LCD
+  lcd.clear();
   lcd.print("score:");
   lcd.print(score);
-  lcd.backlight();
 }
 
 void bird_down()
@@ -192,14 +190,13 @@ void gameover()
 }
 
 
-//鍒濆鍖栬鐭╅樀
 void init_rows()
 {
   for (unsigned char i = 0; i < 16; i++)
   {
     for (unsigned char j = 0; j < 2; j++)
     {
-      col_result[i][j] = 0; //鎭㈠涓洪浂
+      col_result[i][j] = 0; 
     }
   }
 
@@ -221,25 +218,25 @@ void random_row(unsigned char first_num)
   unsigned char ran_num = random(2, 12);
   for (unsigned char j = 0; j < 16; j++)
   {
-    rows[first_num][j] = 0;//鍒濆锟�??
+    rows[first_num][j] = 0;
   }
   for (unsigned char j = 0; j < 16; j++)
   {
     if (j != ran_num && j != ran_num + 1 && j != ran_num + 2)
     {
-      rows[first_num][j] = 1;//娑堝け锟�??
+      rows[first_num][j] = 1;
     }
   }
 }
 
-//璁＄畻鍚戦噺鐭╅樀
+//�����Լ�����ˮ��
 void calculate(unsigned char counts)
 {
   for (unsigned char i = 0; i < 16; i++)
   {
     for (unsigned char j = 0; j < 2; j++)
     {
-      col_result[i][j] = 0; //鎭㈠涓洪浂
+      col_result[i][j] = 0;
     }
   }
 
@@ -249,7 +246,7 @@ void calculate(unsigned char counts)
     {
       for (unsigned char j = 0; j < 24; j++)
       {
-        cols[i][j] = 0; //鎭㈠涓洪浂
+        cols[i][j] = 0; 
       }
     }
     for (unsigned char i = 0 ; i < 16; i++)
@@ -262,7 +259,7 @@ void calculate(unsigned char counts)
             cols[i][(counts + 6 * j) % 24] = 1;
           }
           if (counts + 6 * j + 1 >= 0) {
-            cols[i][(counts + 6 * j + 1) % 24] = 1; //瓒呰�?16涓洪澶囧垪锛屽綋寮€澶寸粨鏉熸椂渚胯繘锟�?
+            cols[i][(counts + 6 * j + 1) % 24] = 1; //瓒呰�?16涓洪澶囧垪锛屽綋寮€澶寸粨鏉熸椂渚胯繘锟�?
           }
         }
       }
@@ -315,7 +312,6 @@ void calculate(unsigned char counts)
 }
 
 
-//杈撳嚭绗琲锟�??
 void Scan_col(unsigned char col_num)
 {
   switch (col_num)
@@ -388,13 +384,13 @@ void Scan_col(unsigned char col_num)
 }
 
 //************************************************************
-//num涓哄瓧锟�??  dat[][32]涓哄瓧妯＄殑鍚嶇О
+//��ʾ����
 //*************************************************************
 void Display(const unsigned char cols[16][2])
 {
   for (unsigned char i = 0; i < 16; i++)
   {
-    digitalWrite(LEDARRAY_G, HIGH);   //��������ʱ��ر���ʾ���ȸ��������ݣ���138��ʾ�С���ֹ��Ӱ��
+    digitalWrite(LEDARRAY_G, HIGH);   //��������ʱ��ر���ʾ���ȸ��������ݣ���ʾ�С���ֹ��Ӱ��
     Send(cols[i][1]);
     Send(cols[i][0]);
 
@@ -407,11 +403,9 @@ void Display(const unsigned char cols[16][2])
     Scan_row(i);
 
     digitalWrite(LEDARRAY_G, LOW);
-    delayMicroseconds(300);//��ʱһ��ʱ�䣬��LED������			
+    delayMicroseconds(300);//��ʱһ��ʱ�䣬��LED������			
   }
 }
-
-//鏄剧ず锟�??
 
 void Scan_row( unsigned char row_num)
 {
@@ -469,9 +463,6 @@ void Scan_row( unsigned char row_num)
   }
 }
 
-//****************************************************
-//鍙戦€佹暟锟�??
-//****************************************************
 void Send( unsigned char dat)
 {
   unsigned char i;
@@ -492,8 +483,7 @@ void Send( unsigned char dat)
     }
 
     delayMicroseconds(1);
-    digitalWrite(LEDARRAY_CLK, HIGH);       //涓婂崌娌垮彂閫佹暟锟�??
-    delayMicroseconds(1);
+    digitalWrite(LEDARRAY_CLK, HIGH);
     digitalWrite(LEDARRAY_CLK, LOW);
     delayMicroseconds(1);
     dat >>= 1;
