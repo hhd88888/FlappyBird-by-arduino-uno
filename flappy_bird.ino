@@ -68,7 +68,6 @@ unsigned char cols_start[16][24] =
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-//************************************************************************
 //*************************************************************************
 
 unsigned char bird_height = 8;
@@ -135,7 +134,7 @@ void game_begin()
     {
       for (unsigned char j = 0; j < 2; j++)
       {
-        col_result[i][j] = 0; //³õÊ¼»¯
+        col_result[i][j] = 0; //åˆå§‹åŒ–
       }
     }
     for (unsigned char i = 0; i < 16; i++)
@@ -229,7 +228,7 @@ void random_row(unsigned char first_num)
   }
 }
 
-//¼ÆËãÒÔ¼°¸üĞÂË®¹Ü
+//è®¡ç®—ä»¥åŠæ›´æ–°æ°´ç®¡
 void calculate(unsigned char counts)
 {
   for (unsigned char i = 0; i < 16; i++)
@@ -259,7 +258,7 @@ void calculate(unsigned char counts)
             cols[i][(counts + 6 * j) % 24] = 1;
           }
           if (counts + 6 * j + 1 >= 0) {
-            cols[i][(counts + 6 * j + 1) % 24] = 1; //ç“’å‘°ç¹?16æ¶“æ´ªî•©æ¾¶å›§åªé”›å±½ç¶‹å¯®â‚¬æ¾¶å¯¸ç²¨é‰ç†¸æ¤‚æ¸šèƒ¯ç¹˜é”Ÿï¿½?
+            cols[i][(counts + 6 * j + 1) % 24] = 1; //é¡æ‘æ‡“ç»»?16å¨‘æ’´æ¤½é¡£â•‚å¾„é¥Ñƒç™é–¿æ¶˜è‹¯ç¼å¬ªî‡£éˆ§î„å¾„ç€µå“¥æ³¢é–ºå¤Œå–å¦å‚›ç¬Ÿé‘³îˆœç®»é–¿ç‡‚æ‹·?
           }
         }
       }
@@ -384,13 +383,13 @@ void Scan_col(unsigned char col_num)
 }
 
 //************************************************************
-//ÏÔÊ¾¾ØÕó
+//æ˜¾ç¤ºçŸ©é˜µ
 //*************************************************************
 void Display(const unsigned char cols[16][2])
 {
   for (unsigned char i = 0; i < 16; i++)
   {
-    digitalWrite(LEDARRAY_G, HIGH);   //¸üĞÂÊı¾İÊ±ºò¹Ø±ÕÏÔÊ¾¡£µÈ¸üĞÂÍêÊı¾İ£¬ÏÔÊ¾ĞĞ¡£·ÀÖ¹ÖØÓ°¡£
+    digitalWrite(LEDARRAY_G, HIGH);   //æ›´æ–°æ•°æ®æ—¶å€™å…³é—­æ˜¾ç¤ºã€‚ç­‰æ›´æ–°å®Œæ•°æ®ï¼Œæ˜¾ç¤ºè¡Œã€‚é˜²æ­¢é‡å½±ã€‚
     Send(cols[i][1]);
     Send(cols[i][0]);
 
@@ -403,7 +402,7 @@ void Display(const unsigned char cols[16][2])
     Scan_row(i);
 
     digitalWrite(LEDARRAY_G, LOW);
-    delayMicroseconds(300);//ÑÓÊ±Ò»¶ÎÊ±¼ä£¬ÈÃLEDÁÁÆğÀ´			
+    delayMicroseconds(300);//å»¶æ—¶ä¸€æ®µæ—¶é—´ï¼Œè®©LEDäº®èµ·æ¥			
   }
 }
 
