@@ -1,2 +1,4 @@
 # FlappyBird-by-arduino-uno
-use arduino uno
+arduino uno
+use button to control
+need LiquidCrystal_I2C
